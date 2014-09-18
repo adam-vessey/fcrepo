@@ -73,14 +73,23 @@ def install_fedora():
     elif get_fedora_version() == 'fedora-3.4.cfg':
         jarfile = os.path.join(base_dir, 'fc3.4', 'fcrepo-installer-3.4.jar')
         if not os.path.isfile(jarfile):
-            print >> sys.stderr, ('fcrepo-installer-3.4444.jar is missing, '
+            print >> sys.stderr, ('fcrepo-installer-3.4.jar is missing, '
                                   'run buildout first')
             sys.exit(1)
         fedora_path = os.path.join(base_dir, 'fedora-3.4').replace('\\','/')
 
+    elif get_fedora_version() == 'fedora-3.7.cfg':
+        jarfile = os.path.join(base_dir, 'fc3.7.1', 'fcrepo-installer-3.7.1.jar')
+        if not os.path.isfile(jarfile):
+            print >> sys.stderr, ('fcrepo-installer-3.7.1.jar is missing, '
+                                  'run buildout first')
+            sys.exit(1)
+        fedora_path = os.path.join(base_dir, 'fedora-3.7.1').replace('\\','/')
+
     else:
-        print >> sys.stderr, ('fcrepo-installer-3.3.jar or '
-                              'fcrepo-installer-3.4.jar is missing, '
+        print >> sys.stderr, ('fcrepo-installer-3.3.jar,'
+                              'fcrepo-installer-3.4.jar or '
+                              'fcrepo-installer-3.7.1.jar is missing, '
                               'run buildout first')
         sys.exit(1)
 
@@ -102,6 +111,8 @@ def start_fedora():
         fedora_path = os.path.join(os.getcwd(), 'parts', 'fedora-3.3')
     elif get_fedora_version() == 'fedora-3.4.cfg':
         fedora_path = os.path.join(os.getcwd(), 'parts', 'fedora-3.4')
+    elif get_fedora_version() == 'fedora-3.7.cfg':
+        fedora_path = os.path.join(os.getcwd(), 'parts', 'fedora-3.7.1')
     else:
         print >> sys.stderr, ('Something went wrong, sorry...')
         sys.exit(1)
