@@ -80,22 +80,27 @@ class Connection(object):
             
             # Establish the mime type and boundary.
             parsed = urlparse.urlparse(url)
-            mime_type = urlparse.parse_qs(parsed.query)['mimeType']
-            if not mime_type:
-                mime_type = 'application/octet-stream'
-            boundary = '----------ThIs_Is_tHe_bouNdaRY_$'
-            
-            # Build message body.
-            body = (('--{0}{1}Content-Disposition: form-data;'
-                    ' name="file"; filename="IGNORE THE HACK."{1}'
-                    'Content-Type: {2}{1}{1}{1}--{0}--{1}').format(boundary, '\r\n', mime_type))
-            
-            # Change headers for new content type.
-            http_headers.update({
-                'User-Agent': 'INSERT USERAGENTNAME',
-                'Content-Type': 'multipart/form-data; boundary=%s' % boundary
-            })
-        
+
+            try:
+                mime_type = urlparse.parse_qs(parsed.query)['mimeType']
+
+                if not mime_type:
+                    mime_type = 'application/octet-stream'
+                boundary = '----------ThIs_Is_tHe_bouNdaRY_$'
+
+                # Build message body.
+                body = (('--{0}{1}Content-Disposition: form-data;'
+                        ' name="file"; filename="IGNORE THE HACK."{1}'
+                        'Content-Type: {2}{1}{1}{1}--{0}--{1}').format(boundary, '\r\n', mime_type))
+
+                # Change headers for new content type.
+                http_headers.update({
+                    'User-Agent': 'INSERT USERAGENTNAME',
+                    'Content-Type': 'multipart/form-data; boundary=%s' % boundary
+                })
+            except KeyError:
+                pass
+
         # Send out the request.
         attempts = 3
         while attempts:

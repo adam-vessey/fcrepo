@@ -50,7 +50,8 @@ def check_java_version():
                                    stderr=subprocess.STDOUT
                                  ).communicate()[0]
         java_version = (output.splitlines() or [''])[0]
-        if not java_version.startswith('java version "1.6'):
+        if not (java_version.startswith('java version "1.6') 
+                or java_version.startswith('java version "1.7')):
             print >> sys.stderr, ('wrong version of java')
             sys.exit(1)
     except:

@@ -270,14 +270,10 @@ old versions of datastreams or view the audit trail of objects.
 The methods that implement this are available in the WADL API though.
 
 Fedora can create checksums of the content stored in a datastream, 
-by default checksums are disabled, if we set the checksumType property
-to MD5, Fedora will generate the checksum for us.
+by default checksums are disabled.
 
   >>> ds.checksumType  
   u'DISABLED'
-  >>> ds.checksumType = u'MD5'
-  >>> ds.checksum # the checksum always changes between tests
-  u'...'
 
 There are some additional properties, not all of them can be set.
 Have a look at the `REST API Documentation`_ for a full list
@@ -444,29 +440,28 @@ In this case the file can be hosted externally, and we store a datastream
 of controlGroup type `E` (Externally referenced)
 
   >>> obj.addDataStream('URL', controlGroup=u'E',
-  ...                   location=u'http://pypi.python.org/fcrepo')
+  ...                   location=u'http://pypi.python.org/pypi/fcrepo')
   >>> obj.datastreams()
   ['DC', 'FOOXML', 'TEXT', 'URL']
 
-This datastream does not have any content, so trying to read the
-content will result in an error
+This datastream does not have any content, trying to read the
+content will pull it in from the URL? FIXME
 
   >>> ds = obj['URL']
   >>> ds.getContent()
-  Traceback (most recent call last):
-  ...
-  FedoraConnectionException:..."Error getting http://pypi.python.org/fcrepo"  .
+  <httplib.HTTPResponse instance at ...>
+
 
 We can get the location though:
 
   >>> ds.location
-  u'http://pypi.python.org/fcrepo'
+  u'http://pypi.python.org/pypi/fcrepo'
 
 The last of the datastream types is an externally referenced stream that 
 redirects. This datastream has controlGroup `R` (Redirect Referenced)
 
   >>> obj.addDataStream('HOMEPAGE', controlGroup=u'R',
-  ...                   location=u'http://pypi.python.org/fcrepo')
+  ...                   location=u'http://pypi.python.org/pypi/fcrepo')
   >>> obj.datastreams()
   ['DC', 'FOOXML', 'TEXT', 'URL', 'HOMEPAGE']
 

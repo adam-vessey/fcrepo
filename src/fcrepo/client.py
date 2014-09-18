@@ -277,7 +277,7 @@ class FedoraClient(object):
         
         #conditionaly set limit if there is one. (so it can be set to None)
         if limit:
-            URL_pramaters['limit'] = limit
+            URL_pramaters['limit'] = str(limit)
         
         # Encode in utf8 to let unicode pass through urlencode
         for key in URL_pramaters:
