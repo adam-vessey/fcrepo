@@ -91,6 +91,10 @@ class API(object):
         fp = self.connection.open('/objects/application.wadl', headers=self.connection.form_headers)
         wadl_xml = fp.read()
         fp.close()
+        if 'http://wadl.dev.java.net/2009/02' in wadl_xml:
+            # Real ugly hack!
+            import compat_3_7
+            wadl_xml = compat_3_7.fake_wadl
         self.doc = etree.fromstring(wadl_xml)
         for method in self.doc.xpath('//wadl:method',
                                      namespaces=NSMAP):

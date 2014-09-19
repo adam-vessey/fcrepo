@@ -113,7 +113,7 @@ You can't create an object with the same PID twice.
   >>> obj = client.createObject(pid, label=u'Second try?')
   Traceback (most recent call last):
   ...
-  FedoraConnectionException: ... The PID 'foo:...' already exists in the registry; the object can't be re-created.
+  FedoraConnectionException: ...
 
 Fetching Objects
 ~~~~~~~~~~~~~~~~
@@ -182,7 +182,7 @@ Let's try a non supported state:
   >>> obj.state = u'Z'
   Traceback (most recent call last): 
   ...
-  FedoraConnectionException: ... The object state of "Z" is invalid. The allowed values for state are:  A (active), D (deleted), and I (inactive).
+  FedoraConnectionException: ...
 
 
 Setting the modification or creation date directly results in an error, they can not be set.
@@ -533,7 +533,7 @@ through the `DC` datastream.
   >>> ds.setContent()
   Traceback (most recent call last):
   ...
-  FedoraConnectionException: ... The RELS-EXT datastream has improper relationship assertion: dc:title.
+  FedoraConnectionException: ...
 
 We can also use RDF to create relations between objects. For example we can add
 a relation using the Fedora isMemberOfCollection which can be used to group
