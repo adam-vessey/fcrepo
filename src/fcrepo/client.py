@@ -117,9 +117,6 @@ class FedoraClient(object):
         if not 'mimeType' in params:
             params['mimeType'] = u'application/binary'
             
-        if 'checksumType' not in params:
-            params['checksumType'] = u'MD5'
-
         params = self._fix_ds_params(params)
 
         request = self.api.addDatastream(pid=pid, dsID=dsid)
