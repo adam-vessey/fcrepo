@@ -115,7 +115,7 @@ class FedoraClient(object):
             if not 'mimeType' in params:
                 params['mimeType'] = u'text/xml'
         if not 'mimeType' in params:
-            params['mimeType'] = u'application/binary'
+            params['mimeType'] = u'application/octet-stream'
             
         params = self._fix_ds_params(params)
 
